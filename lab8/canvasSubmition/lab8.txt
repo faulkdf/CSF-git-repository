@@ -1,0 +1,145 @@
+addTwo.j program:
+____________________________________________________
+
+.class public addTwo
+.super java/lang/Object
+
+.method public static main([Ljava/lang/String;)V
+    .limit stack 2
+    .limit locals 4
+
+    ; Load the first command-line argument
+    aload_0
+    iconst_0
+    aaload
+    invokestatic java/lang/Integer/parseInt(Ljava/lang/String;)I
+    istore_1
+
+    ; Load the second command-line argument
+    aload_0
+    iconst_1
+    aaload
+    invokestatic java/lang/Integer/parseInt(Ljava/lang/String;)I
+    istore_2
+
+    ; Add the two numbers
+    iload_1
+    iload_2
+    iadd
+    istore_3
+
+    ; Convert the sum to a string
+    new java/lang/StringBuilder
+    dup
+    invokespecial java/lang/StringBuilder/<init>()V
+    iload_3
+    invokevirtual java/lang/StringBuilder/append(I)Ljava/lang/StringBuilder;
+    invokevirtual java/lang/StringBuilder/toString()Ljava/lang/String;
+
+    ; Print the sum
+    getstatic java/lang/System/out Ljava/io/PrintStream;
+    swap
+    invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
+
+    ; Terminate the program
+    return
+.end method
+
+___________________________________________________________________
+
+evenOdd.j program:
+
+__________________________________________________________________
+
+.class public EvenOdd
+.super java/lang/Object
+
+.method public static main([Ljava/lang/String;)V
+    .limit stack 2
+    .limit locals 2
+
+    ; Load the command-line argument
+    aload_0
+    iconst_0
+    aaload
+    invokestatic java/lang/Integer/parseInt(Ljava/lang/String;)I
+    istore_1
+
+    ; Check if the input is even or odd
+    iload_1
+    iconst_1
+    iand
+    ifne isOdd
+
+    ; Input is even
+    getstatic java/lang/System/out Ljava/io/PrintStream;
+    ldc "Even"
+    invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
+    goto end
+
+isOdd:
+    ; Input is odd
+    getstatic java/lang/System/out Ljava/io/PrintStream;
+    ldc "Odd"
+    invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
+
+end:
+    ; Terminate the program
+    return
+.end method
+
+_____________________________________________________________________
+
+echoArgs.j program:
+
+_____________________________________________________________________
+
+.class public EchoArgs
+.super java/lang/Object
+
+.method public static main([Ljava/lang/String;)V
+    .limit stack 10
+    .limit locals 3
+
+    ; Get the number of command-line arguments
+    aload_0
+    arraylength
+    istore_1
+
+    ; Initialize the argument index
+    iconst_0
+    istore_2
+
+loop:
+    ; Check if the index is less than the number of arguments
+    iload_2
+    iload_1
+    if_icmpge end
+
+    ; Print the argument index
+    getstatic java/lang/System/out Ljava/io/PrintStream;
+    iload_2
+    invokevirtual java/io/PrintStream/print(I)V
+
+    ; Print a separator
+    getstatic java/lang/System/out Ljava/io/PrintStream;
+    ldc " "
+    invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V
+
+    ; Print the argument value
+    getstatic java/lang/System/out Ljava/io/PrintStream;
+    aload_0
+    iload_2
+    aaload
+    invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
+
+    ; Increment the index
+    iinc 2 1
+    goto loop
+
+end:
+    ; Terminate the program
+    return
+.end method
+
+___________________________________________________________________
